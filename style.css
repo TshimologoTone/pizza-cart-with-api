@@ -1,0 +1,105 @@
+body {
+    background-color: black;
+    color: #fdfffd;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.pizzas {
+    /* display: flex; */
+}
+
+.pizza {
+    border: 1px solid;
+    margin-bottom: 0.5cm;
+    padding: 0.5cm ;
+    width: 15cm;
+    flex: 1;
+    border-radius: 0.25cm;
+    display: inline-block;
+    width: 10cm;
+    background-color: cornflowerblue;
+    color: black;
+}
+
+/* table {
+    border: 1px solid;
+    margin-bottom: 0.5cm;
+    padding: 0.5cm ;
+    width: 15cm;
+    flex: 1;
+    border-radius: 0.25cm;
+    display: inline-block;
+    width: 10cm;
+    background-color: cornflowerblue;
+    color: black;
+} */
+
+.cart, .pizzas {
+    margin-bottom: 20px;
+    padding: 20px;
+    /* border: 1px solid #201f1f; */
+    border-radius: 8px;
+    /* background-color: #1d1b1b; */
+}
+
+.cart h2, .pizzas h2 {
+    margin-bottom: 10px;
+}
+
+.message {
+    margin-bottom: 10px;
+    color: red;
+}
+
+table {
+    width: 10%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+th, td {
+    border: 1px solid #770f0f;
+    padding: 8px;
+    text-align: left;
+    flex:auto
+}
+
+th {
+    background-color: #050505;
+}
+
+tr:nth-child(even) {
+    background-color: #160101;
+}
+
+tr:hover {
+    background-color: #161515;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+[x-cloak] { display: none !important; }
+
+
+@media only screen and (max-width: 600px) {
+    .table {
+      background-color: lightblue;
+    }
+  }

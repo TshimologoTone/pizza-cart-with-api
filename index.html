@@ -19,7 +19,6 @@
                     username: <input type="text" x-model="username">
                     <button x-on:click="Login" x-show="!cartId">Login</button>
                     <button x-on:click="Logout" x-show="username && cartId">Logout</button>
-                    <!-- <a href="">Logout</a> -->
                 </div>
                 <div x-show="cartId">
                     Cart code: <span x-text="cartId"> </span>
@@ -44,7 +43,7 @@
                             <td x-text="pizza.price"></td>
                         <td>
                             <button x-on:click="addPizzaToCart(pizza.id)">+</button>
-                            x<span x-test="pizza.qty"></span>
+                            x<span x-text="pizza.qty"></span>
                             <button x-on:click="removePizzaFromCart(pizza.id)">-</button>
                         </td>
                         <td x-text="pizza.total"></td>
@@ -97,6 +96,40 @@
                 </div>
             </template>
 
+        </div>
+
+        <div class="conclusion">
+            <b><br>Contact us at: (011)-541-1876</b>
+            <b><br><a href="https://github.com/TshimologoTone">GitHub</a></b>
+            <b><br>PerfectPizza</b>
+
+            <b><br>Address: Serokolo Street<br> Rev Federick Road <br> Meadowlands 1852</b>
+    
+        <footer x-data class="text-center mt-10 bg-yellow-300 ">
+            <div class="pt-5 pb-5">
+                <p><b>@Tshimologo Pty.Ltd | All Rights Reserved &copy; <span x-text="new Date().getFullYear()"></span></b></span></p>
+            </div>
+        </div>
+
+    
+                <div class="row">
+                    <div>
+                        <div class="socials">
+                            <p x-text="contact"></p>
+                            <p x-text="fb"></p>
+                            <p x-text="GitHub"></p>
+                            <p x-text="Logo"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <div class="address">
+                            <p x-html="Address" class="mb-10"></p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
         </div>
 
 </body>

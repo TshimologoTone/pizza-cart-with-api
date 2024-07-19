@@ -97,6 +97,21 @@ button:hover {
 
 [x-cloak] { display: none !important; }
 
+.conclusion {
+    background-color: cadetblue;
+    border: 1px solid;
+    margin-bottom: 0.5cm;
+    padding: 0.5cm ;
+    width: 15cm;
+    flex: 1;
+    border-radius: 0.25cm;
+    display: inline-block;
+    width: 10cm;
+    background-color: cornflowerblue;
+    color: black;
+    text-decoration: solid;
+  }
+
 
 @media only screen and (max-width: 600px) {
     .table {

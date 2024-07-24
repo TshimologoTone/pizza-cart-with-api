@@ -2,6 +2,12 @@ body {
     background-color: black;
     color: #fdfffd;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: url('pizza-bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+
 }
 
 .container {
@@ -26,19 +32,6 @@ body {
     color: black;
 }
 
-/* table {
-    border: 1px solid;
-    margin-bottom: 0.5cm;
-    padding: 0.5cm ;
-    width: 15cm;
-    flex: 1;
-    border-radius: 0.25cm;
-    display: inline-block;
-    width: 10cm;
-    background-color: cornflowerblue;
-    color: black;
-} */
-
 .cart, .pizzas {
     margin-bottom: 20px;
     padding: 20px;
@@ -61,21 +54,22 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
     flex: 1;
+    background-color: coral;
 }
 
 th, td {
-    border: 1px solid #770f0f;
+    border: 1px solid #161515;
     padding: 8px;
     text-align: left;
     flex:auto
 }
 
 th {
-    background-color: #050505;
+    background-color: coral;
 }
 
 tr:nth-child(even) {
-    background-color: #160101;
+    background-color: coral;
 }
 
 tr:hover {
@@ -102,4 +96,19 @@ button:hover {
     .table {
       background-color: lightblue;
     }
+  }
+
+  .conclusion {
+    background-color: cadetblue;
+    border: 1px solid;
+    margin-bottom: 0.5cm;
+    padding: 0.5cm ;
+    width: 15cm;
+    flex: 1;
+    border-radius: 0.25cm;
+    display: inline-block;
+    width: 10cm;
+    background-color: cornflowerblue;
+    color: black;
+    text-decoration: solid;
   }

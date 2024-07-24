@@ -7,7 +7,7 @@ document.addEventListener("alpine:init", () => {
             cartId: '',
             cartTotal: 0.00,
             cartPizzas: [],
-            paymentAmount: 0.00,
+            paymentAmount: '',
             message: '',
             Login() {
                 if (this.username.length > 2) {
@@ -112,26 +112,34 @@ document.addEventListener("alpine:init", () => {
                         console.error("Error removing pizza from cart:", error);
                     });
             },
+            
             payForCart() {
                 this.pay(this.paymentAmount)
                     .then(result => {
                         if (result.data.status === 'failure') {
                             this.message = result.data.message;
                         } else {
-                            this.message = 'Payment received!';
-                            this.cartPizzas = [];
-                            this.cartTotal = 0.00;
-                            localStorage.removeItem('cartId');
+                            const change = this.paymentAmount - this.cartTotal;
+                            this.message = `Payment received! Your change is ${change.toFixed(2)}. Your cart will be reset shortly.`;
+                            
+                            // Keep cart items and total for a while to show the user
+                            setTimeout(() => {
+                                this.cartPizzas = [];
+                                this.cartTotal = 0.00;
+                                localStorage.removeItem('cartId');
+                                this.message = '';
+                                this.createCart();
+                                this.paymentAmount = 0;
+                            }, 8000); // Clear cart after 8 seconds
                         }
-                        setTimeout(() => {
-                            this.message = '';
-                            this.createCart();
-                            this.paymentAmount = 0;
-                        }, 3000);
                     }).catch(error => {
+                        this.message = 'Error processing payment. Please try again.';
                         console.error("Error processing payment:", error);
                     });
             }
+            
+            
+            
         };
     });
 });

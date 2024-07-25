@@ -9,12 +9,13 @@ document.addEventListener("alpine:init", () => {
             cartPizzas: [],
             paymentAmount: '',
             message: '',
+            history: [],
             Login() {
                 if (this.username.length > 2) {
                     localStorage['username'] = this.username;
                     this.createCart();
                 } else {
-                alert("username is too short")
+                    alert("username is too short");
                 }
             },
             Logout() {
@@ -67,6 +68,27 @@ document.addEventListener("alpine:init", () => {
                     amount: amount
                 });
             },
+
+            fetchHistoryCart() {
+                axios
+                    .get(`https://pizza-api.projectcodex.net/api/pizza-cart/username/${this.username}`)
+                    .then((res) => {
+                        const carts = res.data;
+                        carts.forEach((cart) => {
+                            if (cart.status === 'paid') {
+                                const cartCode = cart.cart_code;
+                                axios
+                                    .get(`https://pizza-api.projectcodex.net/api/pizza-cart/${cartCode}/get`)
+                                    .then((res) => {
+                                        const cartData = res.data;
+                                        console.log('Cart Data', cartData);
+                                        this.history.push(cartData);
+                                    });
+                            }
+                        });
+                    });
+            },
+
             showCartData() {
                 this.getCart().then(result => {
                     const cartData = result.data;
@@ -95,6 +117,8 @@ document.addEventListener("alpine:init", () => {
                     }).catch(error => {
                         console.error("Error creating cart:", error);
                     });
+
+                this.fetchHistoryCart();
             },
             addPizzaToCart(pizzaId) {
                 this.addPizza(pizzaId)
@@ -112,7 +136,6 @@ document.addEventListener("alpine:init", () => {
                         console.error("Error removing pizza from cart:", error);
                     });
             },
-            
             payForCart() {
                 this.pay(this.paymentAmount)
                     .then(result => {
@@ -136,10 +159,10 @@ document.addEventListener("alpine:init", () => {
                         this.message = 'Error processing payment. Please try again.';
                         console.error("Error processing payment:", error);
                     });
-            }
-            
-            
-            
+            },
         };
     });
 });
+
+// this.history = [cartData, ...this.history];
+//                                         console.log('history', this.history);

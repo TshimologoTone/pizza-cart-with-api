@@ -51,7 +51,7 @@ GET https://pizza-api.projectcodex.net/api/pizza-cart/username/TshimologoTone
 
 ### GET all the active carts for a user
 
-GET https://pizza-api.projectcodex.net/api/pizza-cart/username/Lindani/active
+GET https://pizza-api.projectcodex.net/api/pizza-cart/username/TshimologoTone/active
 
 
 ### Pay for a pizza from the cart

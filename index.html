@@ -9,19 +9,19 @@
     <script src="pizza.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body x-data="pizzaCart" x-init="  ">
+<body x-data="pizzaCart" x-init="init()">
     <div class="container">
         <h1 x-text="title"></h1>
 
         <div class="cart" x-cloak>
             <div>
                 <div>
-                    username: <input type="text" x-model="username">
-                    <button x-on:click="Login" x-show="!cartId">Login</button>
-                    <button x-on:click="Logout" x-show="username && cartId">Logout</button>
+                    Username: <input type="text" x-model="username">
+                    <button x-on:click="Login()" x-show="!cartId">Login</button>
+                    <button x-on:click="Logout()" x-show="username && cartId">Logout</button>
                 </div>
                 <div x-show="cartId">
-                    Cart code: <span x-text="cartId"> </span>
+                    Cart code: <span x-text="cartId"></span>
                 </div>
             </div>
             <div x-show="cartTotal > 0">
@@ -36,28 +36,28 @@
                         <th>Total</th>
                     </tr>
 
-                    <template x-for="pizza in cartPizzas">
+                    <template x-for="pizza in cartPizzas" :key="pizza.id">
                         <tr>
                             <td x-text="pizza.flavour"></td>
                             <td x-text="pizza.size"></td>
                             <td x-text="pizza.price"></td>
-                        <td>
-                            <button x-on:click="addPizzaToCart(pizza.id)">+</button>
-                            x<span x-text="pizza.qty"></span>
-                            <button x-on:click="removePizzaFromCart(pizza.id)">-</button>
-                        </td>
-                        <td x-text="pizza.total"></td>
+                            <td>
+                                <button x-on:click="addPizzaToCart(pizza.id)">+</button>
+                                <span x-text="pizza.qty"></span>
+                                <button x-on:click="removePizzaFromCart(pizza.id)">-</button>
+                            </td>
+                            <td x-text="pizza.total"></td>
                         </tr>
                     </template>
                     
                     <tr>
                         <td colspan="3">Total</td>
-                        <td colspan="2" style="float: right;">R <span x-text="cartTotal"></span> </td>
-                    </tr> 
+                        <td colspan="2" style="float: right;">R <span x-text="cartTotal"></span></td>
+                    </tr>
                     <tr>
                         <td colspan="3">Pay now</td>
                         <td>
-                            <input x-model="paymentAmount" type="test">
+                            <input x-model="paymentAmount" type="text">
                         </td>
                         <td><button x-on:click="payForCart()">Pay</button></td>
                     </tr>
@@ -65,26 +65,11 @@
             </div>
         </div>
 
-        <div class="pizzas" x-show="username && cartId" >
+        <div class="pizzas" x-show="username && cartId">
             <h2>Pizzas</h2>
-            <template x-for="pizza in pizzas">
-                <h5 x-test="pizza.flavour"></h5>
-                <!-- <span x-test="pizza.id" ></span> -->
-                <span x-test="pizza.size" ></span> @
-                <strong>
-                    R<span x-test="pizza.price"></span>
-                </strong>
-                <strong>
-                    <div>
-                        <button class="btn">Add to cart</button>
-                    </div>
-                </strong>
-            </template>
-
             <template x-for="pizza in pizzas" :key="pizza.id">
                 <div class="pizza">
                     <h5 x-text="pizza.flavour"></h5>
-                    <!-- <span x-text="pizza.id"></span> -->
                     <span x-text="pizza.size"></span> @
                     <strong>
                         R<span x-text="pizza.price"></span>
@@ -95,42 +80,74 @@
                     </div>
                 </div>
             </template>
-
         </div>
 
         <div class="conclusion">
             <b><br>Contact us at: (011)-541-1876</b>
             <b><br><a href="https://github.com/TshimologoTone">GitHub</a></b>
             <b><br>PerfectPizza</b>
-
             <b><br>Address: Serokolo Street<br> Rev Federick Road <br> Meadowlands 1852</b>
-    
-        <footer x-data class="text-center mt-10 bg-yellow-300 ">
-            <div class="pt-5 pb-5">
-                <p><b>@Tshimologo Pty.Ltd | All Rights Reserved &copy; <span x-text="new Date().getFullYear()"></span></b></span></p>
-            </div>
         </div>
 
-    
-                <div class="row">
-                    <div>
-                        <div class="socials">
-                            <p x-text="contact"></p>
-                            <p x-text="fb"></p>
-                            <p x-text="GitHub"></p>
-                            <p x-text="Logo"></p>
-                        </div>
-                    </div>
-                    <br>
-                    <div>
-                        <div class="address">
-                            <p x-html="Address" class="mb-10"></p>
-                        </div>
+        <footer class="text-center mt-10 bg-yellow-300">
+            <div class="pt-5 pb-5">
+                <p><b>@Tshimologo Pty.Ltd | All Rights Reserved &copy; <span x-text="new Date().getFullYear()"></span></b></p>
+            </div>
+            <div class="row">
+                <div>
+                    <div class="socials">
+                        <p x-text="contact"></p>
+                        <p x-text="fb"></p>
+                        <p x-text="GitHub"></p>
+                        <p x-text="Logo"></p>
                     </div>
                 </div>
-            </footer>
-        </div>
-        </div>
+                <br>
+                <div>
+                    <div class="address">
+                        <p x-html="Address" class="mb-10"></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="history">
+            <template x-for="cart in history" :key="cart.cart_code">
+                <p>Total: R<span x-text="cart.total"></span></p>
+            </template>
 
+            <div class="historyCart" x-show="history.length > 0">
+                <h2>Cart History</h2>
+                <table class="cartTable">
+                    <tr>
+                        <th>Cart code</th>
+                        <th>Flavour</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+
+                    <template x-for="pizza in history" :key="pizza.pizza_cart_id">
+                        <tr>
+                            <td x-text="pizza.pizza_cart_id"></td>
+                            <td x-text="pizza.flavour"></td>
+                            <td x-text="pizza.size"></td>
+                            <td x-text="pizza.price"></td>
+                            <td>x <span x-text="pizza.qty"></span></td>
+                            <td x-text="pizza.total.toFixed(2)"></td>
+                        </tr>
+                    </template>
+
+                    <template x-for="pizza in history" :key="pizza.pizza_cart_id">
+                        <tr>
+                            <td colspan="6">
+                                <span x-text="pizza.size + ' ' + pizza.flavour + ' @ R ' + pizza.price + ' x ' + pizza.qty + ' = R ' + pizza.total.toFixed(2)"></span>
+                            </td>
+                        </tr>
+                    </template>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
